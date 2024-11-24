@@ -10,8 +10,11 @@ class ItemController extends Controller
     public function items(){
         $items = items::all();
         return view("items", compact("items"));
+        
+        
     }
 
+    
 
     public function create_item(){
         return view("items_create");

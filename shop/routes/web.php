@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\SessionController;
 use App\Models\brands;
 use App\Models\categories;
 use Illuminate\Support\Facades\Route;
@@ -63,3 +65,12 @@ Route::delete("/brands/{brand_id}",[BrandController::class,"delete"])->name("des
 Route::get("/brands/create",[BrandController::class, "create_brand"]);
 
 Route::post("/brands/create",[BrandController::class, "create"])->name("post.brand");
+
+
+
+Route::get("/session/reset",[SessionController::class, "reset"]);
+Route::get("/session/second",[SessionController::class, "show_second"]);
+
+
+Route::post("/cart",[CartController::class,"add"])->name("post.cart");
+Route::get("/cart",[CartController::class,"cart"]);

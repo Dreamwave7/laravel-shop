@@ -8,7 +8,7 @@
 <table>
         <thead>
             <tr>
-                <th>ID</th>
+                <th></th>
                 <th>Name</th>
                 <th>Description</th>
                 <th>Price</th>
@@ -21,7 +21,20 @@
 
             @foreach($items as $item)
             <tr>
-                <td>{{$item->id}}</td>
+                <td>
+                <form action="{{route('post.cart')}}" method="post">
+                @csrf
+                <input type="hidden" name="item_id" value="{{$item->id}}">
+                <input type="hidden" name="item_name" value="{{$item->name}}">
+                <input type="hidden" name="item_description" value="{{$item->description}}">
+                <input type="hidden" name="item_price" value="{{$item->price}}">
+                <input type="hidden" name="item_brand" value="{{$item->brand->name}}">
+                <input type="hidden" name="item_category" value="{{$item->category->name}}">
+                <input type="number" value=1 style="width: 30px; height: 30px; font-size: 14px;" name="item_quantity"><p></p>
+
+                <button>Add to cart</button>
+                </form>
+                </td>
                 <td>
                     <a href="/items/{{$item->id}}">{{$item->name}}</a>
                 </td>
