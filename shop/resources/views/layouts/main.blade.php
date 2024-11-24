@@ -15,10 +15,10 @@
                 <a href="/items">Items</a>
             </li>
             <li>
-                <a href="/category">Category</a>
+                <a href="/categories">Category</a>
             </li>
             <li>
-                <a href="/brand">Brand</a>
+                <a href="/brands">Brand</a>
             </li>
             <li>
                 <a href="/cart">Cart</a>

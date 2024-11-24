@@ -18,14 +18,16 @@ class ItemController extends Controller
     }
 
     public function create(){
+
         $data = request()->validate([
             "name"=>"string",
             "description"=>"string",
             "price"=>"integer",
-            "brand"=>"string",
-            "category"=>"integer",
-            "image"=>"string"
+            "brand_id"=>"integer",
+            "category_id"=>"integer",
+            "image"=>"nullable|integer"
         ]);
+
         items::create($data);
         return redirect()->to("/items");
     }
@@ -47,14 +49,20 @@ class ItemController extends Controller
             "name" => "nullable|string",
             "description" => "nullable|string",
             "price" => "nullable|integer",
-            "brand" => "nullable|string",
-            "category" => "nullable|integer"
+            "brand_id" => "nullable|string",
+            "category_id" => "nullable|integer"
         ]);
 
         $data = array_filter($data);
         items::find($item_id)->update($data);
         return redirect()->to("/items");
 
+    }
+
+    public function delete($item_id){
+        $item = items::find($item_id);
+        $item->delete();
+        return redirect()->to("/items");
     }
     
 }

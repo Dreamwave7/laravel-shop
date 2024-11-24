@@ -4,7 +4,7 @@
 @section("content")
 
 
-
+<h1 style="color: orangered;">Search by brand {{$items->first()->brand->name}}</h1>
 <table>
         <thead>
             <tr>
