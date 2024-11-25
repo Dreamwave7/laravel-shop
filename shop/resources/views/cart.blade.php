@@ -48,33 +48,37 @@
     }
     .reset-link {
         display: inline-block;
-        padding: 10px 20px; /* Отступы внутри кнопки */
-        background-color: #f44336; /* Красный цвет фона */
-        color: #fff; /* Белый цвет текста */
-        text-decoration: none; /* Убираем подчеркивание */
-        font-size: 14px; /* Размер шрифта */
-        font-weight: bold; /* Полужирный текст */
-        border-radius: 5px; /* Скругленные углы */
-        border: none; /* Убираем границу */
-        cursor: pointer; /* Указатель при наведении */
-        transition: background-color 0.3s ease; /* Анимация при наведении */
+        padding: 10px 20px; 
+        background-color: blue;
+        color: yellow; 
+        text-decoration: none; 
+        font-size: 14px; 
+        font-weight: bold; 
+        border-radius: 5px;
+        border: none; 
+        cursor: pointer; 
+        transition: background-color 0.3s ease; 
     }
 
     .reset-link:hover {
-        background-color: #d32f2f; /* Темнее при наведении */
+        background-color: blueviolet; 
     }
 
     .reset-link:active {
-        background-color: #b71c1c; /* Еще темнее при нажатии */
+        background-color: blueviolet; /
     }
 </style>
 
 @php
+
 $total_price = 0;
 @endphp
 
+<div class="separator"></div>
+<a class= "reset-link" href = "/session/reset">Reset all items</a>
 @foreach($items as $item)
 <div class="separator"></div>
+
 <div class="item">
     <p><strong>Name:</strong> {{$item["item_name"]}}</p>
     <p><strong>Description:</strong> {{$item["item_description"]}}</p>
@@ -96,9 +100,19 @@ $total_price = 0;
 <div class="separator"></div>
 @endforeach
 
+<div class="separator"></div>
+
+<form action="{{route('post.order')}}" method="post">
+    @csrf
+    <input type="hidden" name = "order" value="{{json_encode($items)}}">
+    <input type="hidden" name = "total_price" value="{{$total_price}}">
+<button class= "reset-link">Make order</button>
+</form>
+
 <p class="total-price">Total price = {{$total_price}} uah</p>
 
-<a class= "reset-link" href = "/session/reset">Reset all items</a>
+
+
 
 
 @endsection
