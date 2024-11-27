@@ -9,6 +9,7 @@ class ItemController extends Controller
 {
     public function items(){
         $items = items::all();
+        session()->put("permanent","permanent");
         return view("items", compact("items"));
         
         
