@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\items;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cookie;
+
+use function PHPSTORM_META\type;
 
 class ItemController extends Controller
 {
@@ -31,7 +35,6 @@ class ItemController extends Controller
             "category_id"=>"integer",
             "image"=>"nullable|integer"
         ]);
-
         items::create($data);
         return redirect()->to("/items");
     }
@@ -39,6 +42,17 @@ class ItemController extends Controller
 
     public function show_item($id){
         $item = items::findOrFail($id);
+
+        if(isset($_COOKIE["last_items"])){
+            $this->change_cookie();
+        }
+        else
+        {
+            $current_page = [request()->fullUrl(),];
+            $current_page = json_encode($current_page);
+            setcookie("last_items",$current_page, time()+2500,"/");
+        }
+
         return view("items_show",compact("item"));
     }
 
@@ -69,4 +83,19 @@ class ItemController extends Controller
         return redirect()->to("/items");
     }
     
+
+    public function change_cookie(){
+
+        $last_items = json_decode($_COOKIE["last_items"]);
+        $current_page = request()->fullUrl();
+
+        if(count($last_items) >10){
+            array_pop($last_items);
+        }
+        array_unshift($last_items,$current_page);
+        
+        $last_items=json_encode($last_items);
+        setcookie("last_items",$last_items,time()+3600,"/");
+       dump($_COOKIE["last_items"]);
+    }
 }

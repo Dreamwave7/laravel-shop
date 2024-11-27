@@ -45,6 +45,7 @@ Route::get("/session/reset",[SessionController::class, "reset"])->middleware(Log
 Route::get("/session/second",[SessionController::class, "show_second"])->middleware(LoggerMiddleware::class);
 Route::post("/cart",[CartController::class,"add"])->name("post.cart")->middleware(LoggerMiddleware::class);
 Route::get("/cart",[CartController::class,"cart"])->middleware(LoggerMiddleware::class);
+Route::get("/cart/viewed",[CartController::class,"cart_last_items"])->middleware(LoggerMiddleware::class);
 
 
 

@@ -3,20 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class SessionController extends Controller
 {
     public function reset(){
-        // session()->put("cart",["id"=>"53","name"=>"some second shoes","price"=>5020]);
-        // session(["cart"=>["id"=>"513","name"=>"some23 second shoes","price"=>50230]]);
-        // session()->push("cart",["id"=>"551","name"=>"some second shoes","price"=>5020]);
-        session()->forget("cart");
+
+        $items =json_encode(["jacket","shoes","dress"],true);
+        Cookie::queue("last_items",$items,150,"/");
         return redirect()->to("/items");
     }
 
     public function show_second(){
+        unset($_COOKIE["last_items"]);
+        $data = json_encode([
+            "http://127.0.0.1:8000/session/second",
+    
+    ],
         
-        $data = session()->all();
-        dd($data);
+        
+        true);
+        // setcookie("last_items",$data, time() +400);
+        dd($_COOKIE["last_items"]);
+
+
     }
 }

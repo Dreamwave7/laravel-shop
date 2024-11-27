@@ -42,5 +42,10 @@ class CartController extends Controller
         else{return redirect()->to("/items");}
             
         }
+
+        public function cart_last_items(){
+            $last_items = json_decode($_COOKIE["last_items"]);
+            return view("cart_viewed",compact("last_items"));
+        }
     }
 

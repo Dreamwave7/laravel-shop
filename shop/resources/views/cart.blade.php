@@ -59,6 +59,19 @@
         cursor: pointer; 
         transition: background-color 0.3s ease; 
     }
+    .latest-items {
+        display: inline-block;
+        padding: 10px 20px; 
+        background-color: grey;
+        color: yellow; 
+        text-decoration: none; 
+        font-size: 14px; 
+        font-weight: bold; 
+        border-radius: 5px;
+        border: none; 
+        cursor: pointer; 
+        transition: background-color 0.3s ease; 
+    }
 
     .reset-link:hover {
         background-color: blueviolet; 
@@ -76,6 +89,7 @@ $total_price = 0;
 
 <div class="separator"></div>
 <a class= "reset-link" href = "/session/reset">Reset all items</a>
+<a class= "latest-items" href = "/cart/viewed">See last viewed items</a>
 @foreach($items as $item)
 <div class="separator"></div>
 
@@ -86,11 +100,11 @@ $total_price = 0;
     <p><strong>Category:</strong> {{$item["item_category"]}}</p>
     <p><strong>Brand:</strong> {{$item["item_brand"]}}</p>
     <p><strong>Quantity:</strong> {{$item["item_quantity"]}}</p>
-    <form action="" method="post">
+    <!-- <form action="" method="post">
         @csrf
         @method("delete")
         <button>Delete</button>
-    </form>
+    </form> -->
 
     @php
     $price_quantity = $item["item_price"] * $item["item_quantity"];
