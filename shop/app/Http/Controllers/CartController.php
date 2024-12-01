@@ -23,14 +23,17 @@ class CartController extends Controller
 
     }
 
+    public function cart_last_items()
+    {
+        $last_items = json_decode($_COOKIE["last_items"]);
+        return view("cart_viewed",compact("last_items"));
+    }
 
+    public function delete($id)
+    {
+        $deleting = Cart::delete($id);
+        return redirect()->to("/cart");
+    }
 
-
-
-
-        public function cart_last_items(){
-            $last_items = json_decode($_COOKIE["last_items"]);
-            return view("cart_viewed",compact("last_items"));
-        }
     }
 

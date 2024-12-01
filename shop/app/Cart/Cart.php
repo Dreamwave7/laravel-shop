@@ -16,6 +16,7 @@ class Cart
         $item_category = request()->input("item_category");
         $item_quantity = request()->input("item_quantity");
 
+
         if(request()->input("item_quantity") <= 0){
             return redirect()->to("/items");
         }
@@ -72,6 +73,28 @@ class Cart
     public function save()
     {
         ////////
+    }
+
+    public static function delete($id)
+    {   
+        $newItemsArray = [];
+
+        $items = self::load();
+
+        foreach($items as $item)
+        {
+            if($item->getItemId() != $id)
+            {
+                $newItemsArray[] = $item;
+            }
+            else
+            {
+                //
+            }
+        }
+
+        session(['cart' => $newItemsArray]);
+
     }
 
 

@@ -46,6 +46,7 @@ Route::get("/session/second",[SessionController::class, "show_second"])->middlew
 Route::post("/cart",[CartController::class,"add"])->name("post.cart")->middleware(LoggerMiddleware::class);
 Route::get("/cart",[CartController::class,"cart"])->middleware(LoggerMiddleware::class);
 Route::get("/cart/viewed",[CartController::class,"cart_last_items"])->middleware(LoggerMiddleware::class);
+Route::delete("/cart/delete/{id}",[CartController::class,"delete"])->name("delete.cart")->middleware(LoggerMiddleware::class);
 
 
 

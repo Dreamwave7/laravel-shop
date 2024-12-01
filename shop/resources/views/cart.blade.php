@@ -90,18 +90,20 @@ $total_price = 0;
 <div class="separator"></div>
 <a class= "reset-link" href = "/session/reset">Reset all items</a>
 <a class= "latest-items" href = "/cart/viewed">See last viewed items</a>
+@if(!$items)
+<p>Your cart is empty</p>
+@else
+
 @foreach($items as $item)
 <div class="separator"></div>
-
 <div class="item">
-
     <p><strong>Name:</strong> {{$item->getItemName()}}</p>
     <p><strong>Description:</strong> {{$item->getItemDescription()}}</p>
     <p><strong>Price:</strong> {{$item->getItemPrice()}}</p>
     <p><strong>Category:</strong> {{$item->getItemCategory()}}</p>
     <p><strong>Brand:</strong> {{$item->getItemBrand()}}</p>
     <p><strong>Quantity:</strong> {{$item->getItemQuantity()}}</p> 
-<form action="" method="post">
+    <form action="{{  route('delete.cart',$id = $item->getItemId())  }}" method="post">
         @csrf
         @method("delete")
         <button>Delete</button>
@@ -115,8 +117,6 @@ $total_price = 0;
 <div class="separator"></div>
 @endforeach
 
-<div class="separator"></div>
-
 <form action="{{route('post.order')}}" method="post">
     @csrf
     <input type="hidden" name = "order" value="{{json_encode($items)}}">
@@ -126,8 +126,7 @@ $total_price = 0;
 
 <p class="total-price">Total price = {{$total_price}} uah</p>
 
-
-
+@endif
 
 
 @endsection
