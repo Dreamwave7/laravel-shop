@@ -94,20 +94,21 @@ $total_price = 0;
 <div class="separator"></div>
 
 <div class="item">
-    <p><strong>Name:</strong> {{$item["item_name"]}}</p>
-    <p><strong>Description:</strong> {{$item["item_description"]}}</p>
-    <p><strong>Price:</strong> {{$item["item_price"]}}</p>
-    <p><strong>Category:</strong> {{$item["item_category"]}}</p>
-    <p><strong>Brand:</strong> {{$item["item_brand"]}}</p>
-    <p><strong>Quantity:</strong> {{$item["item_quantity"]}}</p>
-    <!-- <form action="" method="post">
+
+    <p><strong>Name:</strong> {{$item->getItemName()}}</p>
+    <p><strong>Description:</strong> {{$item->getItemDescription()}}</p>
+    <p><strong>Price:</strong> {{$item->getItemPrice()}}</p>
+    <p><strong>Category:</strong> {{$item->getItemCategory()}}</p>
+    <p><strong>Brand:</strong> {{$item->getItemBrand()}}</p>
+    <p><strong>Quantity:</strong> {{$item->getItemQuantity()}}</p> 
+<form action="" method="post">
         @csrf
         @method("delete")
         <button>Delete</button>
-    </form> -->
+    </form>
 
     @php
-    $price_quantity = $item["item_price"] * $item["item_quantity"];
+    $price_quantity = $item->getItemPrice() * $item->getItemQuantity();
     $total_price += $price_quantity;
     @endphp
 </div>

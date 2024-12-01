@@ -9,8 +9,7 @@ class SessionController extends Controller
 {
     public function reset(){
 
-        $items =json_encode(["jacket","shoes","dress"],true);
-        Cookie::queue("last_items",$items,150,"/");
+        request()->session()->forget("cart");
         return redirect()->to("/items");
     }
 

@@ -4,7 +4,6 @@
 @section("content")
 
 
-
 <table>
         <thead>
             <tr>
@@ -50,27 +49,27 @@
     @if($items->isEmpty())
         <a href="/items/create" style="color: red; text-decoration: none; font-weight: bold; display: block; margin-bottom: 35px;">Create new item</a>
     @endif
-    
+
 
 
     <style>
         table {
-            width: 100%; 
+            width: 100%;
             border-collapse: collapse;
-            margin: 20px 0; 
+            margin: 20px 0;
         }
         th, td {
-            border: 1px solid #ccc; 
-            padding: 10px; 
-            text-align: left; 
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
         }
         th {
-            background-color: #f4f4f4; 
+            background-color: #f4f4f4;
         }
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
-    </style>    
+    </style>
 @endsection
 
 
