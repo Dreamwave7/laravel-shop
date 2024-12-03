@@ -18,8 +18,8 @@ class CartController extends Controller
 
     public function cart()
     {
-       $cart = Cart::getCart();
-       return $cart;
+       $items = Cart::getCart();
+       return view("cart",compact("items"));
 
     }
 

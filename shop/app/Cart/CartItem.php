@@ -69,9 +69,7 @@ class CartItem
 
     public function addQuantity(int $value)
     {
-        $quantity = $this->item_quantity;
-        $quantity = $quantity +$value;
-        $this->item_quantity = $quantity;
+        $this->item_quantity += $value;
     }
 
 

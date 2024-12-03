@@ -7,6 +7,11 @@ class Cart
 
     public static function add($request)
     {
+        
+        if(request()->input("item_quantity") <= 0)
+        {
+            return redirect()->to("/items");
+        }
         //md5
         $item_id = $request->input("item_id");
         $item_name = request()->input("item_name");
@@ -17,58 +22,46 @@ class Cart
         $item_quantity = request()->input("item_quantity");
 
 
-        if(request()->input("item_quantity") <= 0){
-            return redirect()->to("/items");
-        }
-
         $item = new CartItem($item_id, $item_name, $item_description,$item_price,$item_brand,$item_category,$item_quantity);
 
         $items = self::load();
         
-        $exist = false;
 
-        if($items)
-        {
-            foreach($items as $current)
-            {   
-                if($item->getItemId() == $current->getItemId())
-                {
-                    $current->addQuantity($item->getItemQuantity());
-                    $exist = true;
-                }
-            }   
+
+        foreach($items as $current)
+        {   
+            if($item->getItemId() == $current->getItemId())
+            {
+                $current->addQuantity($item->getItemQuantity());
+                session()->put("cart",$items);
+                return;
+            }
         }
+
+        $items[]= $item;
+        session()->put("cart",$items);
         
-        if(!$exist)
-        {
-            session()->push("cart",$item);
-        }
+        
     }
+
+
+
 
 
     public static function load()
     {
-        $items = session()->only(["cart"]);
-        if(!empty($items))
-        {
-            $items = $items["cart"];
-            return $items;
-        }
-        else
-        {
-            return null;
-        }
+        return session('cart', []);
 
     }
 
     public static function getCart()
     {
         $items = session()->only(["cart"]);
-        if(!empty($items)){
-            $items = $items["cart"];
-            return view("cart",compact("items"));}
-        else{return redirect()->to("/items");}
+        $items = $items["cart"];
+        return $items;
     }
+
+    
 
     public function save()
     {

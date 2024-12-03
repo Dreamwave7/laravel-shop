@@ -91,10 +91,13 @@ $total_price = 0;
 <a class= "reset-link" href = "/session/reset">Reset all items</a>
 <a class= "latest-items" href = "/cart/viewed">See last viewed items</a>
 @if(!$items)
+
 <p>Your cart is empty</p>
+
 @else
 
 @foreach($items as $item)
+
 <div class="separator"></div>
 <div class="item">
     <p><strong>Name:</strong> {{$item->getItemName()}}</p>
@@ -113,6 +116,7 @@ $total_price = 0;
     $price_quantity = $item->getItemPrice() * $item->getItemQuantity();
     $total_price += $price_quantity;
     @endphp
+
 </div>
 <div class="separator"></div>
 @endforeach
