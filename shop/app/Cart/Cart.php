@@ -5,9 +5,9 @@ namespace App\Cart;
 class Cart
 {
 
-    public static function add($request)
+    public function add($request)
     {
-        
+
         if(request()->input("item_quantity") <= 0)
         {
             return redirect()->to("/items");
@@ -24,55 +24,54 @@ class Cart
 
         $item = new CartItem($item_id, $item_name, $item_description,$item_price,$item_brand,$item_category,$item_quantity);
 
-        $items = self::load();
-        
+        $items = $this->load();
+
 
 
         foreach($items as $current)
-        {   
+        {
             if($item->getItemId() == $current->getItemId())
             {
                 $current->addQuantity($item->getItemQuantity());
                 session()->put("cart",$items);
-                return;
+                return [];
             }
         }
 
         $items[]= $item;
         session()->put("cart",$items);
-        
-        
+
     }
 
 
 
 
 
-    public static function load()
+    public function load()
     {
         return session('cart', []);
 
     }
 
-    public static function getCart()
+    public function getCart()
     {
         $items = session()->only(["cart"]);
         $items = $items["cart"];
         return $items;
     }
 
-    
+
 
     public function save()
     {
         ////////
     }
 
-    public static function delete($id)
-    {   
+    public function delete($id)
+    {
         $newItemsArray = [];
 
-        $items = self::load();
+        $items = $this->load();
 
         foreach($items as $item)
         {
@@ -80,18 +79,11 @@ class Cart
             {
                 $newItemsArray[] = $item;
             }
-            else
-            {
-                //
-            }
         }
 
         session(['cart' => $newItemsArray]);
 
     }
-
-
-
 
 
 

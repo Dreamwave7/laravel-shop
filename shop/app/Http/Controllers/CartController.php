@@ -7,18 +7,24 @@ use App\Cart\Cart;
 
 class CartController extends Controller
 {
+    private $cart;
+    public function __construct(Cart $cart)
+    {
+        $this->cart = $cart;
+    }
 
 
     public function add(Request $request)
     {
-        $item = Cart::add($request);
+        $item = $this->cart->add($request);
+
         return redirect()->to("/items");
     }
 
 
     public function cart()
     {
-       $items = Cart::getCart();
+       $items = $this->cart->getCart();
        return view("cart",compact("items"));
 
     }
@@ -31,7 +37,7 @@ class CartController extends Controller
 
     public function delete($id)
     {
-        $deleting = Cart::delete($id);
+        $deleting = $this->cart->delete($id);
         return redirect()->to("/cart");
     }
 

@@ -10,6 +10,7 @@ class SessionController extends Controller
     public function reset(){
 
         request()->session()->forget("cart");
+        request()->session()->put("cart",[]);
         return redirect()->to("/items");
     }
 
@@ -17,10 +18,10 @@ class SessionController extends Controller
         unset($_COOKIE["last_items"]);
         $data = json_encode([
             "http://127.0.0.1:8000/session/second",
-    
+
     ],
-        
-        
+
+
         true);
         // setcookie("last_items",$data, time() +400);
         dd($_COOKIE["last_items"]);
